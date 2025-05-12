@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AVANYA AI - Login Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #f72585;
+      --light: #ffffff;
+      --bg-dark: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: var(--light);
+    }
+
+    .login-container {
+      background: var(--bg-dark);
+      backdrop-filter: blur(15px);
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo h1 i {
+      color: var(--accent);
+    }
+
+    .logo p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .login-options {
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .login-btn {
+      padding: 1rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--light);
+      font-size: 1rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .login-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-3px);
+    }
+
+    .language-selector {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .language-selector select {
+      padding: 0.4rem 0.6rem;
+      border-radius: 5px;
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+    .language-selector option {
+      color: black;
+    }
+
+    @media (max-width: 600px) {
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+
+      .login-btn {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <h1><i class="fas fa-robot"></i> AVANYA AI</h1>
+      <p id="tagline">Empowering Education with Intelligence</p>
+    </div>
+
+    <div class="login-options">
+      <button class="login-btn" onclick="location.href='Admin.html'">
+        <i class="fas fa-user-shield"></i> <span data-text="admin">Login as Admin</span>
+      </button>
+      <button class="login-btn" onclick="location.href='teacher-dashboard.html'">
+        <i class="fas fa-chalkboard-teacher"></i> <span data-text="teacher">Login as Teacher</span>
+      </button>
+      <button class="login-btn" onclick="location.href='student-dashboard.html'">
+        <i class="fas fa-user-graduate"></i> <span data-text="student">Login as Student</span>
+      </button>
+      <button class="login-btn" onclick="location.href='Parent Dashboard.html'">
+        <i class="fas fa-users"></i> <span data-text="parent">Login as Parent</span>
+      </button>
+    </div>
+
+    <div class="language-selector">
+      <span data-text="language">Language:</span>
+      <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="mr">मराठी</option>
+      </select>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        tagline: "Empowering Education with Intelligence",
+        admin: "Login as Admin",
+        teacher: "Login as Teacher",
+        student: "Login as Student",
+        parent: "Login as Parent",
+        language: "Language:"
+      },
+      hi: {
+        tagline: "बुद्धिमत्ता के साथ शिक्षा को सशक्त बनाना",
+        admin: "प्रशासक के रूप में लॉगिन करें",
+        teacher: "शिक्षक के रूप में लॉगिन करें",
+        student: "छात्र के रूप में लॉगिन करें",
+        parent: "अभिभावक के रूप में लॉगिन करें",
+        language: "भाषा:"
+      },
+      mr: {
+        tagline: "बुद्धिमत्तेसह शिक्षेला सक्षम बनवित आहे",
+        admin: "प्रशासक म्हणून लॉगिन करा",
+        teacher: "शिक्षक म्हणून लॉगिन करा",
+        student: "विद्यार्थी म्हणून लॉगिन करा",
+        parent: "पालक म्हणून लॉगिन करा",
+        language: "भाषा:"
+      }
+    };
+
+    const languageSelect = document.getElementById('languageSelect');
+    const elements = document.querySelectorAll('[data-text]');
+    const tagline = document.getElementById('tagline');
+
+    function updateLanguage(lang) {
+      elements.forEach(el => {
+        const key = el.getAttribute('data-text');
+        if (translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      tagline.textContent = translations[lang].tagline;
+    }
+
+    languageSelect.addEventListener('change', (e) => {
+      updateLanguage(e.target.value);
+    });
+
+    // Default to English
+    updateLanguage('en');
+  </script>
+</body>
+</html>
